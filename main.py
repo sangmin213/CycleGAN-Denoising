@@ -261,8 +261,7 @@ def eval():
     # generate
     for idx in range(10):
         tmp = np.random.randint(0,200)
-        imgX, _ = dataset.__getitem__(tmp+50)
-        _, imgY = dataset.__getitem__(tmp) # paired imgX & imgY
+        imgX, imgY = dataset.__getitem__(tmp)
         imgX = imgX.view(1,1,512,512).to(device)
         imgY = imgY.view(1,1,512,512).to(device)        
         with torch.no_grad():
@@ -273,7 +272,7 @@ def eval():
             imgX = dataset.test_transform(imgX)
             imgY = dataset.test_transform(imgY)
 
-        result = torch.cat((imgX,fakeX,imgY,fakeY))
+        result = torch.cat((imgX,fakeX,imgY))
         noise = torch.cat((imgX-imgY,fakeX-imgY,imgX-fakeY))*5
         save_image(result, f"./result{idx}.png")
         save_image(noise, f"./noise{idx}.png")

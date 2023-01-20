@@ -55,7 +55,7 @@ class AAPMDataset(Dataset):
         if self.path == 'train':
             self.plus = 500
         else:
-            self.plus = 50
+            self.plus = 0
 
         if path == "train":
             self.length = 3839 # train data set cnt
